@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './pages/login';
+import Signup from './pages/signup';
 import PrivateOutlet from './utils/PrivateOutlet';
 import PublicOutlet from './utils/PublicOutlet';
 
@@ -8,7 +10,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<PublicOutlet />}>
-            <Route element={<>login</>} path='/' />
+            <Route element={<Login />} path='/' />
+            <Route element={<Signup />} path='/signup' />
           </Route>
           <Route element={<PrivateOutlet />}>
             <Route element={<>home</>} path='/home' />
