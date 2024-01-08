@@ -38,6 +38,30 @@ const cartProduct = ({ user, product, successCB }) => {
     })
     .catch((err) => console.log(err));
 };
+
+const placeOrder = ({
+  user,
+  product,
+  quantity,
+  unit_price,
+  address,
+  successCB,
+}) => {
+  const data = {
+    user: user,
+    product: product,
+    quantity: quantity,
+    unit_price: unit_price,
+    address: address,
+  };
+  axios
+    .post('product/order/', data, { headers: headers })
+    .then((response) => {
+      successCB(response.data);
+      return response.data;
+    })
+    .catch((err) => console.log(err));
+};
 const getAllProduct = ({ successCB, errorCB }) => {
   axios
     .get('product/', { headers })
@@ -91,4 +115,5 @@ export {
   searchProduct,
   createProduct,
   cartProduct,
+  placeOrder,
 };

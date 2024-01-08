@@ -1,8 +1,11 @@
 import { cartProduct } from '../../api/product';
 import LocalStorageService from '../../utils/LocalStorageService';
 import { useNavigate } from 'react-router-dom';
+import OrderModal from '../productOrder';
+import React, { useState } from 'react';
 
 export default function ProductDetails({ data, handleClose }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const userId = LocalStorageService.getUserid();
   console.log({ userId });
   const navigate = useNavigate();
@@ -16,6 +19,19 @@ export default function ProductDetails({ data, handleClose }) {
       },
     });
   };
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const orderProduct = () => {
+    // Open the modal when Buy Now button is clicked
+    openModal();
+  };
+
   return (
     <div className='bg-white w-screen h-screen absolute'>
       <div
@@ -64,12 +80,19 @@ export default function ProductDetails({ data, handleClose }) {
             </div>
             <div className='mt-10'>
               <button
+                onClick={orderProduct}
                 type='submit'
                 className='mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
               >
                 Buy now
               </button>
             </div>
+            <OrderModal
+              userId={userId}
+              data={data}
+              isOpen={modalIsOpen}
+              closeModal={closeModal}
+            />
           </div>
 
           <div className='py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6'>
