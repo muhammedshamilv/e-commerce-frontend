@@ -27,6 +27,7 @@ const Login = () => {
           console.log({ res });
           LocalStorageService.setToken(res.access);
           LocalStorageService.setUser(res.user.email);
+          LocalStorageService.setUserRole(res.is_admin);
           navigate('/home');
         },
       });

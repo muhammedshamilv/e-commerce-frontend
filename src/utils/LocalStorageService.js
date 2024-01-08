@@ -24,10 +24,23 @@ class LocalStorageService {
   static setUser = (user) => {
     localStorage.setItem('user', user);
   };
-
+  static setUserId = (userid) => {
+    localStorage.setItem('userid', userid);
+  };
+  static setUserRole = (user) => {
+    localStorage.setItem('role', user);
+  };
+  static getUserid = () => {
+    const loggedUser = localStorage.getItem('userid');
+    return loggedUser;
+  };
   static getUser = () => {
     const loggedUser = localStorage.getItem('user');
     return loggedUser;
+  };
+  static getUserRole = () => {
+    const loggedUserRole = localStorage.getItem('role');
+    return loggedUserRole;
   };
 }
 export default LocalStorageService;

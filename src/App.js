@@ -16,6 +16,7 @@ function App() {
           </Route>
           <Route element={<PrivateOutlet />}>
             <Route element={<Home />} path='/home' />
+            <Route element={<>hiiiii</>} path='/product-details' />
           </Route>
         </Routes>
       </BrowserRouter>
