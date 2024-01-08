@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PrivateOutlet from './utils/PrivateOutlet';
+import PublicOutlet from './utils/PublicOutlet';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<PublicOutlet />}>
+            <Route element={<>login</>} path='/' />
+          </Route>
+          <Route element={<PrivateOutlet />}>
+            <Route element={<>home</>} path='/home' />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
