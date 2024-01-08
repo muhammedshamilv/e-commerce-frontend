@@ -1,91 +1,73 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../api/auth';
+import LocalStorageService from '../../utils/LocalStorageService';
+import { Button } from './styles/style';
+import { selectName, updateUser } from '../../store/user';
 import { Link } from 'react-router-dom';
 
-export default function Login() {
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const values = useSelector(selectName);
+  const navigate = useNavigate();
+
+  const onSubmitForm = () => {
+    login({
+      email,
+      password,
+      successCB: (res) => {
+        dispatch(updateUser({ name: res.user.email, is_admin: res.is_admin }));
+        console.log({ res });
+        LocalStorageService.setToken(res.access);
+        LocalStorageService.setUser(res.user.email);
+        navigate('/home');
+      },
+    });
+  };
+
   return (
-    <>
-      <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-        <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-          {/* <img
-            className='mx-auto h-10 w-auto'
-            src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
-            alt='Your Company'
-          /> */}
-          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-            Sign in to your account
-          </h2>
-        </div>
-
-        <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-          <form className='space-y-6' action='#' method='POST'>
-            <div>
-              <label
-                htmlFor='email'
-                className='block text-sm font-medium leading-6 text-gray-900'
-              >
-                Email address
-              </label>
-              <div className='mt-2'>
-                <input
-                  id='email'
-                  name='email'
-                  type='email'
-                  autoComplete='email'
-                  required
-                  className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className='flex items-center justify-between'>
-                <label
-                  htmlFor='password'
-                  className='block text-sm font-medium leading-6 text-gray-900'
-                >
-                  Password
-                </label>
-                <div className='text-sm'>
-                  <a
-                    href='#'
-                    className='font-semibold text-indigo-600 hover:text-indigo-500'
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className='mt-2'>
-                <input
-                  id='password'
-                  name='password'
-                  type='password'
-                  autoComplete='current-password'
-                  required
-                  className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type='submit'
-                className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
-
-          <p className='mt-10 text-center text-sm text-gray-500'>
-            Not a member?{' '}
-            <Link
-              to='signup'
-              className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
-            >
-              Sign up
-            </Link>
-          </p>
-        </div>
+    <div className='bg-gray-200 h-screen flex justify-center items-center'>
+      <div className='bg-[#afccdd]/50 flex justify-center flex-col p-2 pl-6 pr-6  items-center gap-5 mdm:w-96 h-96 border rounded-2xl '>
+        <h1 className='text-[#eb9c9c] text-2xl'>Login</h1>
+        <input
+          type='text'
+          className='w-full p-2 border border-emerald-200 outline-none rounded-xl'
+          placeholder='email'
+          autoFocus
+          onChange={(e) => setEmail(e.target.value)}
+        ></input>
+        <input
+          type='password'
+          className='w-full p-2 border border-emerald-200 outline-none rounded-xl'
+          placeholder='password'
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
+        <Button>
+          <button
+            onClick={() => onSubmitForm()}
+            className='btn2 px-10 py-5 relative border-none bg-[#01aaf870] outline-none rounded-xl uppercase font-semibold tracking-wider overflow-hidden hover:text-teal-600'
+            type='button'
+          >
+            <span className='absolute inset-0 bg-white'></span>
+            <span className='absolute inset-0 flex justify-center items-center font-bold'>
+              login
+            </span>
+          </button>
+        </Button>
+        <p className='mt-10 text-center text-sm text-gray-500'>
+          Not a member?{' '}
+          <Link
+            to='signup'
+            className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
+          >
+            Sign up
+          </Link>
+        </p>
       </div>
-    </>
+    </div>
   );
-}
+};
+export default Login;
