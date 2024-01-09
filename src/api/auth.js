@@ -1,6 +1,6 @@
 import axios from './axios';
 
-const login = ({ email, password, successCB }) => {
+const login = ({ email, password, successCB, errorCB }) => {
   const data = {
     email: email,
     password: password,
@@ -11,10 +11,15 @@ const login = ({ email, password, successCB }) => {
       successCB(response.data);
       return response.data;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
 };
 
-const signup = ({ email, password, successCB }) => {
+const signup = ({ email, password, successCB, errorCB }) => {
   const data = {
     email: email,
     password1: password,
@@ -25,7 +30,12 @@ const signup = ({ email, password, successCB }) => {
       successCB(response.data);
       return response.data;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
 };
 
 export { login, signup };

@@ -4,15 +4,17 @@ import { MdClose } from 'react-icons/md';
 import { getCategories } from '../../api/category';
 import { editProduct } from '../../api/product';
 const EditProductModal = ({ isOpen, closeModal, data, handleEdit }) => {
-  const [productDetails, setProductDetails] = useState({
-    name: data?.name,
-    availability: data?.availability,
-    price: data?.price,
-    details: data?.details,
-    image: null,
-    category: '',
-  });
-
+  useEffect(() => {
+    setProductDetails({
+      name: data?.name,
+      availability: data?.availability,
+      price: data?.price,
+      details: data?.details,
+      image: null,
+      category: '',
+    });
+  }, [data]);
+  const [productDetails, setProductDetails] = useState({});
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState();
@@ -63,7 +65,7 @@ const EditProductModal = ({ isOpen, closeModal, data, handleEdit }) => {
         id: data?.id,
         data: formData,
         successCB: (res) => {
-          setCategories(res.results);
+          window.location.reload();
         },
         errorCB: (err) => {
           alert(err);

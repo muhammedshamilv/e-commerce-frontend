@@ -27,12 +27,12 @@ const Login = () => {
           console.log({ res });
           LocalStorageService.setToken(res.access);
           LocalStorageService.setUser(res.user.email);
-          LocalStorageService.setUserRole(res.is_admin);
+          LocalStorageService.setUserRole(res.is_admin ? res.is_admin : false);
           navigate('/home');
         },
         errorCB: (err) => {
-          alert(err);
-          console.error(err);
+          alert(err.response.data?.password1 || 'invalid email');
+          console.log(err);
         },
       });
     } else {

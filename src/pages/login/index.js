@@ -23,7 +23,7 @@ const Login = () => {
         LocalStorageService.setToken(res.access);
         LocalStorageService.setUser(res.user.email);
         LocalStorageService.setUserId(res.user_id);
-        LocalStorageService.setUserRole(res.is_admin);
+        LocalStorageService.setUserRole(res.is_admin ? res.is_admin : false);
         navigate('/home');
       },
       errorCB: (err) => {

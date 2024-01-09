@@ -3,7 +3,14 @@ import { getCategories } from '../../api/category';
 import { filterProduct, getAllProduct, searchProduct } from '../../api/product';
 import ProductCard from '../../components/productCard';
 
-const Product = ({ search, filter, showDropdown, toggleDropdown }) => {
+const Product = ({
+  search,
+  filter,
+  showDropdown,
+  toggleDropdown,
+  reload,
+  setReload,
+}) => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState();
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -15,7 +22,7 @@ const Product = ({ search, filter, showDropdown, toggleDropdown }) => {
       return;
     }
     fetchProjects();
-  }, [search]);
+  }, [search, reload]);
   const handleCheckboxChange = (category) => {
     if (selectedCategories.includes(category)) {
       setSelectedCategories(
@@ -52,12 +59,11 @@ const Product = ({ search, filter, showDropdown, toggleDropdown }) => {
     if (selectedCategories) {
       fetchProjects();
     }
-  }, [selectedCategories]);
+  }, [selectedCategories, reload]);
   const handleSubmit = () => {
     const selectedItems = categories
       .filter((category) => selectedCategories.includes(category.id))
       .map((category) => category.name);
-    console.log({ selectedItems });
     if (selectedItems.length > 0) {
       filterProduct({
         query: selectedItems,

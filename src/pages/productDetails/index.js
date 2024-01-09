@@ -28,21 +28,8 @@ export default function ProductDetails({}) {
         console.error(err);
       },
     });
-  }, []);
+  }, [isEditModalOpen]);
 
-  // const editProductDetails = (e) => {
-  //   editProduct({
-  //     id: id,
-  //     name: productName,
-  //     successCB: (res) => {
-  //       getAllProduct();
-  //     },
-  //     errorCB: (err) => {
-  //       console.error(err);
-  //     },
-  //   });
-  //   setIsModalOpen(false);
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     cartProduct({
@@ -115,7 +102,7 @@ export default function ProductDetails({}) {
               count {data?.availability}
             </p>
 
-            {!isAdmin && (
+            {isAdmin === 'false' && (
               <div className='mt-10'>
                 <button
                   onClick={handleSubmit}
@@ -126,7 +113,7 @@ export default function ProductDetails({}) {
                 </button>
               </div>
             )}
-            {!isAdmin && (
+            {isAdmin === 'false' && (
               <div className='mt-10'>
                 <button
                   onClick={orderProduct}
@@ -137,7 +124,7 @@ export default function ProductDetails({}) {
                 </button>
               </div>
             )}
-            {isAdmin && (
+            {isAdmin === 'true' && (
               <div className='mt-10'>
                 <button
                   onClick={openEditModal}

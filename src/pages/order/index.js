@@ -38,7 +38,14 @@ const CartPage = () => {
 
   return (
     <div>
-      <h1>Your Cart</h1>
+      <h1
+        className={`text-2xl font-bold p-5 ${
+          values.is_cart ? 'text-blue-500' : 'text-green-500'
+        }`}
+      >
+        {values.is_cart ? 'Your Cart' : 'Your Orders'}
+      </h1>
+
       <div>
         {cartItems.map((item) => (
           <CartItem

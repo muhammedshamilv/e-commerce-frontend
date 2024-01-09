@@ -8,6 +8,8 @@ import { getCategories } from '../../api/category';
 const Header = ({ setSearch, setFilter, toggleDropdown }) => {
   const [categories, setCategories] = useState();
 
+  const isAdmin = LocalStorageService.getUserRole();
+
   const navigate = useNavigate();
   const query = useRef('');
 
@@ -52,19 +54,23 @@ const Header = ({ setSearch, setFilter, toggleDropdown }) => {
               Filter
             </button>
           </div>
+          {isAdmin === 'false' && (
+            <button
+              onClick={handleCart}
+              className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'
+            >
+              Cart
+            </button>
+          )}
 
-          <button
-            onClick={handleCart}
-            className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'
-          >
-            Cart
-          </button>
-          <button
-            onClick={handleOrder}
-            className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'
-          >
-            Orders
-          </button>
+          {isAdmin === 'false' && (
+            <button
+              onClick={handleOrder}
+              className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'
+            >
+              Orders
+            </button>
+          )}
           <button
             className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'
             onClick={() => {

@@ -6,12 +6,14 @@ import AddProductModal from '../../components/productCreation';
 
 const Home = () => {
   const [search, setSearch] = useState('');
+  const [reload, setReload] = useState(false);
+
   const [filter, setFilter] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const isAdmin = LocalStorageService.getUserRole();
-
+  console.log(isAdmin);
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -31,7 +33,7 @@ const Home = () => {
         toggleDropdown={toggleDropdown}
       />
       <div className='flex align-middle justify-center'>
-        {isAdmin && (
+        {isAdmin === 'true' && (
           <button
             onClick={openModal}
             className='m-2 px-4 py-2 rounded-md bg-slate-400 hover:bg-gray-600 focus:outline-none'
@@ -45,8 +47,15 @@ const Home = () => {
         filter={filter}
         showDropdown={showDropdown}
         toggleDropdown={toggleDropdown}
+        reload={reload}
+        setReload={setReload}
       />
-      <AddProductModal isOpen={modalIsOpen} closeModal={closeModal} />
+      <AddProductModal
+        isOpen={modalIsOpen}
+        closeModal={closeModal}
+        reload={reload}
+        setReload={setReload}
+      />
     </div>
   );
 };

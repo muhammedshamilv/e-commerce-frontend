@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCategories } from '../../api/category';
 import { createProduct } from '../../api/product';
 
-const AddProductModal = ({ isOpen, closeModal }) => {
+const AddProductModal = ({ isOpen, closeModal, reload, setReload }) => {
   const [productDetails, setProductDetails] = useState({
     name: '',
     price: '',
@@ -91,6 +91,14 @@ const AddProductModal = ({ isOpen, closeModal }) => {
             onChange={handleInputChange}
             required
           />
+          <label>Availability:</label>
+          <input
+            className='border-4'
+            type='text'
+            name='availability'
+            onChange={handleInputChange}
+            required
+          />
 
           <label>Details:</label>
           <textarea
@@ -126,6 +134,9 @@ const AddProductModal = ({ isOpen, closeModal }) => {
           </select>
 
           <button
+            onClick={() => {
+              setReload(!reload);
+            }}
             type='submit'
             className='mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none'
           >
