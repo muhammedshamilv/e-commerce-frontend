@@ -21,6 +21,7 @@ const Product = ({ search, filter }) => {
         setProducts(res);
       },
       errorCB: (err) => {
+        alert(err);
         console.error(err);
       },
     });
@@ -32,6 +33,7 @@ const Product = ({ search, filter }) => {
         setProducts(res);
       },
       errorCB: (err) => {
+        alert(err);
         console.error(err);
       },
       query: search,
@@ -39,7 +41,7 @@ const Product = ({ search, filter }) => {
   };
 
   return (
-    <div className='flex gap-8  p-7'>
+    <div className='flex gap-8  p-7 flex-wrap'>
       {products?.results?.map((p) => (
         <ProductCard data={p} handleSelect={setProduct} />
       ))}

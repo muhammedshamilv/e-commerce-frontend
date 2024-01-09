@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 export default function ProductDetails({ data, handleClose }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const userId = LocalStorageService.getUserid();
-  console.log({ userId });
+  console.log({ data });
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +16,10 @@ export default function ProductDetails({ data, handleClose }) {
       product: data.id,
       successCB: (res) => {
         navigate('/home');
+      },
+      errorCB: (err) => {
+        alert(err);
+        console.error(err);
       },
     });
   };

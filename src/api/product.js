@@ -5,7 +5,7 @@ const token = LocalStorageService.getAccessToken();
 const headers = {
   Authorization: `Bearer ${token}`,
 };
-const createProduct = ({ data, successCB }) => {
+const createProduct = ({ data, successCB, errorCB }) => {
   const formData = new FormData();
   Object.keys(data).forEach((key) => {
     if (key === 'image') {
@@ -21,11 +21,16 @@ const createProduct = ({ data, successCB }) => {
       successCB(response.data);
       return response.data;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
 };
 
-const cartProduct = ({ user, product, successCB }) => {
-  console.log({ user });
+const cartProduct = ({ user, product, successCB, errorCB }) => {
+  console.log({ user }, { product });
   const data = {
     user: user,
     product: product,
@@ -36,7 +41,12 @@ const cartProduct = ({ user, product, successCB }) => {
       successCB(response.data);
       return response.data;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
 };
 
 const placeOrder = ({
@@ -46,6 +56,7 @@ const placeOrder = ({
   unit_price,
   address,
   successCB,
+  errorCB,
 }) => {
   const data = {
     user: user,
@@ -60,11 +71,76 @@ const placeOrder = ({
       successCB(response.data);
       return response.data;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
 };
 const getAllProduct = ({ successCB, errorCB }) => {
   axios
     .get('product/', { headers })
+    .then((response) => {
+      successCB(response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
+};
+
+const getAllCartItems = ({ userId, successCB, errorCB }) => {
+  axios
+    .get(`product/user/${userId}/cart/`, { headers })
+    .then((response) => {
+      successCB(response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
+};
+
+const getOrders = ({ userId, successCB, errorCB }) => {
+  axios
+    .get(`product/user/${userId}/orders/`, { headers })
+    .then((response) => {
+      successCB(response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
+};
+
+const deleteCartItem = ({ id, successCB, errorCB }) => {
+  axios
+    .delete(`product/cart/remove/${id}/`, { headers })
+    .then((response) => {
+      successCB(response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (errorCB) {
+        errorCB(err);
+      }
+    });
+};
+
+const deleteOrderItem = ({ id, successCB, errorCB }) => {
+  axios
+    .delete(`product/order/remove/${id}/`, { headers })
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -116,4 +192,8 @@ export {
   createProduct,
   cartProduct,
   placeOrder,
+  getAllCartItems,
+  getOrders,
+  deleteCartItem,
+  deleteOrderItem,
 };

@@ -1,10 +1,23 @@
 import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LocalStorageService from '../../utils/LocalStorageService';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectName, updateCart } from '../../store/product';
 
 const Header = ({ setSearch, setFilter }) => {
   const navigate = useNavigate();
   const query = useRef('');
+  const dispatch = useDispatch();
+  const values = useSelector(selectName);
+  console.log({ values });
+  const handleCart = () => {
+    dispatch(updateCart({ is_cart: true }));
+    navigate('/cart');
+  };
+  const handleOrder = () => {
+    dispatch(updateCart({ is_cart: false }));
+    navigate('/cart');
+  };
 
   return (
     <header className='bg-gray-800 text-white p-4'>
@@ -30,9 +43,17 @@ const Header = ({ setSearch, setFilter }) => {
           <button className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'>
             Filter
           </button>
-
-          <button className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'>
+          <button
+            onClick={handleCart}
+            className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'
+          >
             Cart
+          </button>
+          <button
+            onClick={handleOrder}
+            className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'
+          >
+            Orders
           </button>
           <button
             className='px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 focus:outline-none'

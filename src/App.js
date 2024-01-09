@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/homePage';
 import Login from './pages/login';
+import CartPage from './pages/order';
 import Signup from './pages/signup';
 import PrivateOutlet from './utils/PrivateOutlet';
 import PublicOutlet from './utils/PublicOutlet';
@@ -16,7 +17,7 @@ function App() {
           </Route>
           <Route element={<PrivateOutlet />}>
             <Route element={<Home />} path='/home' />
-            <Route element={<>hiiiii</>} path='/product-details' />
+            <Route element={<CartPage />} path='/cart' />
           </Route>
         </Routes>
       </BrowserRouter>

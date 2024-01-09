@@ -25,6 +25,10 @@ const AddProductModal = ({ isOpen, closeModal }) => {
         errorCB: (err) => {
           console.error(err);
         },
+        errorCB: (err) => {
+          alert(err);
+          console.error(err);
+        },
       });
     };
 
@@ -39,6 +43,10 @@ const AddProductModal = ({ isOpen, closeModal }) => {
       data: productDetails,
       successCB: (res) => {
         navigate('/home');
+      },
+      errorCB: (err) => {
+        alert(err);
+        console.error(err);
       },
     });
     console.log('Product details:', productDetails);

@@ -27,6 +27,10 @@ const Login = () => {
         LocalStorageService.setUserRole(res.is_admin);
         navigate('/home');
       },
+      errorCB: (err) => {
+        alert(err);
+        console.error(err);
+      },
     });
   };
 

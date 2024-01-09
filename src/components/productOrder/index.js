@@ -19,6 +19,10 @@ const OrderModal = ({ userId, data, isOpen, closeModal }) => {
       successCB: (res) => {
         navigate('/home');
       },
+      errorCB: (err) => {
+        alert(err);
+        console.error(err);
+      },
     });
 
     // Perform action on ordering with quantity and address
