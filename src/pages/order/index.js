@@ -16,7 +16,6 @@ const CartPage = () => {
         userId: userId,
         successCB: (res) => {
           setCartItems(res.data);
-          console.log('res', res);
         },
         errorCB: (err) => {
           alert(err);
@@ -29,7 +28,6 @@ const CartPage = () => {
       userId: userId,
       successCB: (res) => {
         setCartItems(res.data);
-        console.log('res', res);
       },
       errorCB: (err) => {
         alert(err);

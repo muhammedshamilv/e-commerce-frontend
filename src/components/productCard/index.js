@@ -1,29 +1,14 @@
 import React, { useState } from 'react';
 import { editProduct, getAllProduct } from '../../api/product';
 import { useNavigate } from 'react-router-dom';
-import ProductDetails from '../productDetails';
 
 export default function ProductCard({ data, handleSelect }) {
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     editProduct({
-  //       id: productId,
-  //       name: productName,
-  //       successCB: (res) => {
-  //         getAllProduct();
-  //       },
-  //       errorCB: (err) => {
-  //         console.error(err);
-  //       },
-  //     });
-  //     setIsModalOpen(false);
-  //   };
-
-  console.log({ data });
+  const navigate = useNavigate();
   return (
     <div
       onClick={() => {
-        handleSelect(data);
+        // handleSelect(data);
+        navigate(`/product/${data?.id}`);
       }}
       className='bg-white w-64 border-blue-100 p-3 border-2 flex flex-col justify-between'
     >

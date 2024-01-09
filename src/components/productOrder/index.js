@@ -24,9 +24,6 @@ const OrderModal = ({ userId, data, isOpen, closeModal }) => {
         console.error(err);
       },
     });
-
-    // Perform action on ordering with quantity and address
-    console.log(`Ordering ${quantity} item(s) to address: ${address}`);
     closeModal();
   };
 

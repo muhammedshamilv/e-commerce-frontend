@@ -1,7 +1,6 @@
 import axios from './axios';
 
 const login = ({ email, password, successCB }) => {
-  console.log({ email }, { password });
   const data = {
     email: email,
     password: password,
@@ -16,7 +15,6 @@ const login = ({ email, password, successCB }) => {
 };
 
 const signup = ({ email, password, successCB }) => {
-  console.log({ email }, { password });
   const data = {
     email: email,
     password1: password,

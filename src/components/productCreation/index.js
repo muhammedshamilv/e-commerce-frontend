@@ -15,7 +15,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
-  console.log({ categories });
+
   useEffect(() => {
     const getCategory = () => {
       getCategories({
@@ -49,7 +49,7 @@ const AddProductModal = ({ isOpen, closeModal }) => {
         console.error(err);
       },
     });
-    console.log('Product details:', productDetails);
+
     closeModal();
   };
 

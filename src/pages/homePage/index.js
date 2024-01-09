@@ -8,6 +8,8 @@ const Home = () => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const isAdmin = LocalStorageService.getUserRole();
 
   const openModal = () => {
@@ -17,12 +19,17 @@ const Home = () => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
-
-  console.log({ search });
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   return (
     <div>
-      <Header setSearch={setSearch} setFilter={setFilter} />
+      <Header
+        setSearch={setSearch}
+        setFilter={setFilter}
+        toggleDropdown={toggleDropdown}
+      />
       <div className='flex align-middle justify-center'>
         {isAdmin && (
           <button
@@ -33,7 +40,12 @@ const Home = () => {
           </button>
         )}
       </div>
-      <Product search={search} filter={filter} />
+      <Product
+        search={search}
+        filter={filter}
+        showDropdown={showDropdown}
+        toggleDropdown={toggleDropdown}
+      />
       <AddProductModal isOpen={modalIsOpen} closeModal={closeModal} />
     </div>
   );

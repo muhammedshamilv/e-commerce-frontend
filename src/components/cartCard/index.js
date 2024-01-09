@@ -11,7 +11,6 @@ const CartItem = ({ item, id, refresh, setRefresh }) => {
         id: id,
         successCB: (res) => {
           setRefresh(!refresh);
-          console.log('res', res);
         },
         errorCB: (err) => {
           alert(err);
@@ -24,7 +23,6 @@ const CartItem = ({ item, id, refresh, setRefresh }) => {
       id: id,
       successCB: (res) => {
         setRefresh(!refresh);
-        console.log('res', res);
       },
       errorCB: (err) => {
         alert(err);

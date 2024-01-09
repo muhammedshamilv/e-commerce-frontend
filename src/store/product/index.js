@@ -3,7 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const initialState = {
   is_cart: false,
 };
-console.log('initialState', initialState.is_cart);
 const productSlice = createSlice({
   name: 'product',
   initialState,
