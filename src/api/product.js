@@ -1,10 +1,6 @@
 import LocalStorageService from '../utils/LocalStorageService';
 import axios from './axios';
 
-const token = LocalStorageService.getAccessToken();
-const headers = {
-  Authorization: `Bearer ${token}`,
-};
 const createProduct = ({ data, successCB, errorCB }) => {
   const formData = new FormData();
   Object.keys(data).forEach((key) => {
@@ -16,7 +12,7 @@ const createProduct = ({ data, successCB, errorCB }) => {
   });
 
   axios
-    .post('product/', formData, { headers: headers })
+    .post('product/', formData)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -35,7 +31,7 @@ const cartProduct = ({ user, product, successCB, errorCB }) => {
     product: product,
   };
   axios
-    .post('product/cart/', data, { headers: headers })
+    .post('product/cart/', data)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -50,7 +46,7 @@ const cartProduct = ({ user, product, successCB, errorCB }) => {
 
 const getProductId = ({ id, successCB, errorCB }) => {
   axios
-    .get(`product/${id}/`, { headers: headers })
+    .get(`product/${id}/`)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -80,7 +76,7 @@ const placeOrder = ({
     address: address,
   };
   axios
-    .post('product/order/', data, { headers: headers })
+    .post('product/order/', data)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -94,7 +90,7 @@ const placeOrder = ({
 };
 const getAllProduct = ({ successCB, errorCB }) => {
   axios
-    .get('product/all/', { headers })
+    .get('product/all/')
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -109,7 +105,7 @@ const getAllProduct = ({ successCB, errorCB }) => {
 
 const getAllCartItems = ({ userId, successCB, errorCB }) => {
   axios
-    .get(`product/user/${userId}/cart/`, { headers })
+    .get(`product/user/${userId}/cart/`)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -124,7 +120,7 @@ const getAllCartItems = ({ userId, successCB, errorCB }) => {
 
 const getOrders = ({ userId, successCB, errorCB }) => {
   axios
-    .get(`product/user/${userId}/orders/`, { headers })
+    .get(`product/user/${userId}/orders/`)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -139,7 +135,7 @@ const getOrders = ({ userId, successCB, errorCB }) => {
 
 const deleteCartItem = ({ id, successCB, errorCB }) => {
   axios
-    .delete(`product/cart/${id}/`, { headers })
+    .delete(`product/cart/${id}/`)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -154,7 +150,7 @@ const deleteCartItem = ({ id, successCB, errorCB }) => {
 
 const deleteOrderItem = ({ id, successCB, errorCB }) => {
   axios
-    .delete(`product/order/${id}/`, { headers })
+    .delete(`product/order/${id}/`)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -169,7 +165,7 @@ const deleteOrderItem = ({ id, successCB, errorCB }) => {
 
 const searchProduct = ({ successCB, errorCB, query }) => {
   axios
-    .get(`product/all/?search=${query}`, { headers })
+    .get(`product/all/?search=${query}`)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -186,7 +182,7 @@ const filterProduct = ({ successCB, errorCB, query }) => {
   console.log({ query });
   const queryString = query?.map((item) => `${item}`).join('&');
   axios
-    .get(`product/all/?category__name=${queryString}`, { headers })
+    .get(`product/all/?category__name=${queryString}`)
     .then((response) => {
       successCB(response.data);
       return response.data;
@@ -200,7 +196,7 @@ const filterProduct = ({ successCB, errorCB, query }) => {
 };
 const editProduct = ({ id, data, successCB, errorCB }) => {
   axios
-    .put(`product/${id}/`, data, { headers })
+    .put(`product/${id}/`, data)
     .then((response) => {
       successCB(response.data);
     })
